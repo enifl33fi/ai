@@ -18,21 +18,21 @@ class Parser:
             return 2, card_name
 
         # 3) Is close/ranged/siege combat affected by the weather? <special cards separated by comma>
-        match: re.Match = re.match(r'Is (close|ranged|siege) combat affected by the weather\? (.+)', user_input)
+        match: re.Match = re.match(r'Is (close|ranged|siege) combat affected by the weather\?\s?(.*)', user_input)
         if match:
             combat_type: str = match.group(1)
             special_cards: list[str] = [card_name.strip() for card_name in match.group(2).split(",")]
             return 3, combat_type, special_cards
 
         # 4) Is card <name> affected by the weather? <special cards separated by comma>
-        match: re.Match = re.match(r'Is card ([\w\s]+) affected by the weather\? (.+)', user_input)
+        match: re.Match = re.match(r'Is card ([\w\s]+) affected by the weather\?\s?(.*)', user_input)
         if match:
             card_name: str = match.group(1).strip()
             special_cards: list[str] = [name.strip() for name in match.group(2).split(",")]
             return 4, card_name, special_cards
 
         # 5) Get card <name> strength. <special cards separated by comma>
-        match: re.Match = re.match(r'Get card ([\w\s]+) strength\.\s*(.+)', user_input)
+        match: re.Match = re.match(r'Get card ([\w\s]+) strength\.\s?(.*)', user_input)
         if match:
             card_name: str = match.group(1).strip()
             special_cards: list[str] = [name.strip() for name in match.group(2).split(",")]
